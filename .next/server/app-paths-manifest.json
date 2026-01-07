@@ -1,0 +1,8 @@
+{
+  "/page": "app/page.js",
+  "/services/page": "app/services/page.js",
+  "/contact-us/page": "app/contact-us/page.js",
+  "/about/page": "app/about/page.js",
+  "/installation-and-upgrades/page": "app/installation-and-upgrades/page.js",
+  "/repair-service/page": "app/repair-service/page.js"
+}
