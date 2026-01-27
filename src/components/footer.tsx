@@ -150,7 +150,7 @@ export function Footer() {
                 </svg>
               </a>
               <a
-                href="https://g.co/kgs/your-google-business"
+                href="https://maps.app.goo.gl/mmTzEknnWaGaMTY8A"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-11 h-11 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-blue-500 transition-all duration-300"
@@ -197,14 +197,6 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
-              <li>
-                <Link
-                  href="/contact-us"
-                  className="text-slate-400 hover:text-brand-400 transition-colors duration-200 text-sm"
-                >
-                  Our Service Area
-                </Link>
-              </li>
             </ul>
           </div>
 

@@ -1,7 +1,9 @@
 {
   "/icon/[[...__metadata_id__]]/route": "app/icon/[[...__metadata_id__]]/route.js",
-  "/page": "app/page.js",
   "/manifest.webmanifest/route": "app/manifest.webmanifest/route.js",
   "/_not-found/page": "app/_not-found/page.js",
-  "/contact-us/page": "app/contact-us/page.js"
+  "/page": "app/page.js",
+  "/contact-us/page": "app/contact-us/page.js",
+  "/repair-service/page": "app/repair-service/page.js",
+  "/installation-and-upgrades/page": "app/installation-and-upgrades/page.js"
 }
