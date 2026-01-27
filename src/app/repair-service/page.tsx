@@ -15,6 +15,8 @@ import {
   AlertTriangle,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { ServiceSchema, FAQSchema } from '@/components/structured-data'
+import { Breadcrumbs } from '@/components/breadcrumbs'
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -117,13 +119,39 @@ const processSteps = [
 export default function RepairServicePage() {
   return (
     <>
+      <ServiceSchema
+        name="AC & Heating Repair Service"
+        description="Fast, reliable AC and heating repair in Temecula Valley. Same-day service available. Baker Air technicians diagnose and fix problems right the first time."
+        url="https://bakerairinc.com/repair-service"
+        image="https://bakerairinc.com/repair.service.webp"
+      />
+      <FAQSchema
+        faqs={[
+          {
+            question: 'How quickly can you respond to an HVAC emergency?',
+            answer: 'Baker Air offers same-day service for most repair calls. For emergencies, we prioritize getting to you as quickly as possible, often within a few hours.',
+          },
+          {
+            question: 'Do you repair all HVAC brands?',
+            answer: 'Yes, our technicians are trained to repair all major HVAC brands including Carrier, Lennox, Trane, Rheem, Goodman, and more.',
+          },
+          {
+            question: 'What is your diagnostic fee?',
+            answer: 'Our standard diagnostic fee is $97, which covers the technician visit and full system diagnosis. This fee is waived for Comfy Club members.',
+          },
+          {
+            question: 'Do you offer warranties on repairs?',
+            answer: 'Yes, all our repairs come with a warranty on parts and labor. The specific warranty period depends on the type of repair performed.',
+          },
+        ]}
+      />
       {/* Hero Section */}
       <section className="relative min-h-[80vh] flex items-center pt-32 pb-20 overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
           <Image
             src="/repair.service.webp"
-            alt="HVAC Repair Service"
+            alt="Baker Air technician performing AC and heating repair service in Temecula Valley"
             fill
             priority
             className="absolute inset-0 w-full h-full object-cover"
@@ -139,6 +167,15 @@ export default function RepairServicePage() {
               animate="animate"
               variants={stagger}
             >
+              <motion.div variants={fadeInUp} className="mb-4">
+                <Breadcrumbs
+                  items={[
+                    { label: 'Services', href: '/services' },
+                    { label: 'Repair Service', href: '/repair-service' },
+                  ]}
+                />
+              </motion.div>
+
               <motion.div variants={fadeInUp}>
                 <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-50 text-brand-600 text-sm font-medium mb-6">
                   <Wrench className="w-4 h-4" />
@@ -150,10 +187,10 @@ export default function RepairServicePage() {
                 variants={fadeInUp}
                 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 mb-6 tracking-tight"
               >
-                Fast Fixes.{' '}
+                AC & Heating{' '}
                 <span className="relative">
                   <span className="relative z-10 bg-gradient-to-r from-brand-600 to-brand-500 bg-clip-text text-transparent">
-                    No Surprises.
+                    Repair Service
                   </span>
                   <span className="absolute bottom-2 left-0 right-0 h-3 bg-brand-200/50 -z-10" />
                 </span>
@@ -194,9 +231,9 @@ export default function RepairServicePage() {
                       <Wrench className="h-6 w-6 text-brand-600" />
                     </div>
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">
+                  <h2 className="text-xl font-bold text-slate-900 mb-2">
                     Need a Repair?
-                  </h3>
+                  </h2>
                   <p className="text-slate-600 text-sm mb-4">
                     We&apos;re just a call away. Fast, reliable service.
                   </p>
@@ -225,9 +262,9 @@ export default function RepairServicePage() {
                     <Wrench className="h-9 w-9 text-brand-600" />
                   </div>
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-4">
+                <h2 className="text-2xl font-bold text-slate-900 mb-4">
                   Need a Repair?
-                </h3>
+                </h2>
                 <p className="text-slate-600 mb-6">
                   We&apos;re just a call away. Fast, reliable service to get
                   your system running again.

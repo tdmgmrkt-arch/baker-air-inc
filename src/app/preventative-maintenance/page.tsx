@@ -19,6 +19,8 @@ import {
   Sparkles,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { ServiceSchema, FAQSchema } from '@/components/structured-data'
+import { Breadcrumbs } from '@/components/breadcrumbs'
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -132,13 +134,39 @@ const benefits = [
 export default function PreventativeMaintenancePage() {
   return (
     <>
+      <ServiceSchema
+        name="HVAC Preventative Maintenance & The Comfy Club"
+        description="Join The Comfy Club for priority HVAC maintenance. 2 visits per year, 15% repair discount, and $97 service fee waived. Keep your system running efficiently."
+        url="https://bakerairinc.com/preventative-maintenance"
+        image="https://bakerairinc.com/comfy.club.webp"
+      />
+      <FAQSchema
+        faqs={[
+          {
+            question: 'What is The Comfy Club?',
+            answer: 'The Comfy Club is our HVAC maintenance membership program that includes 2 tune-up visits per year, priority scheduling, 15% discount on repairs, and waived $97 service fees.',
+          },
+          {
+            question: 'How often should I have my HVAC system serviced?',
+            answer: 'We recommend servicing your HVAC system twice per year - once in spring for AC preparation and once in fall for heating preparation. This helps maintain efficiency and prevent breakdowns.',
+          },
+          {
+            question: 'What does a tune-up include?',
+            answer: 'Our AC tune-up includes a 26-point inspection covering condenser coils, refrigerant levels, electrical connections, filters, thermostat calibration, and more. Heating tune-ups include an 18-point inspection.',
+          },
+          {
+            question: 'Can maintenance really save me money?',
+            answer: 'Yes! Regular maintenance can reduce energy bills by up to 15%, prevent costly emergency repairs, and extend your system\'s lifespan by several years.',
+          },
+        ]}
+      />
       {/* Hero Section */}
       <section className="relative min-h-[80vh] flex items-center pt-32 pb-20 overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
           <Image
             src="/comfy.club.webp"
-            alt="HVAC Maintenance"
+            alt="HVAC preventative maintenance tune-up service by Baker Air - The Comfy Club"
             fill
             priority
             className="absolute inset-0 w-full h-full object-cover"
@@ -155,6 +183,15 @@ export default function PreventativeMaintenancePage() {
               variants={stagger}
               className="lg:pt-8"
             >
+              <motion.div variants={fadeInUp} className="mb-4">
+                <Breadcrumbs
+                  items={[
+                    { label: 'Services', href: '/services' },
+                    { label: 'Maintenance', href: '/preventative-maintenance' },
+                  ]}
+                />
+              </motion.div>
+
               <motion.div variants={fadeInUp}>
                 <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-50 text-brand-600 text-sm font-medium mb-6">
                   <Shield className="w-4 h-4" />
@@ -166,10 +203,10 @@ export default function PreventativeMaintenancePage() {
                 variants={fadeInUp}
                 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 mb-6 tracking-tight"
               >
-                Comfort That{' '}
+                HVAC Maintenance &{' '}
                 <span className="relative">
                   <span className="relative z-10 bg-gradient-to-r from-brand-600 to-brand-500 bg-clip-text text-transparent">
-                    Lasts.
+                    The Comfy Club
                   </span>
                   <span className="absolute bottom-2 left-0 right-0 h-3 bg-brand-200/50 -z-10" />
                 </span>
@@ -269,9 +306,9 @@ export default function PreventativeMaintenancePage() {
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-4xl lg:text-5xl font-bold text-white mb-8 tracking-tight">
+                    <h2 className="text-4xl lg:text-5xl font-bold text-white mb-8 tracking-tight">
                       The Comfy Club
-                    </h3>
+                    </h2>
 
                     {/* Benefits list */}
                     <div className="space-y-3 text-left max-w-xs mx-auto mb-8">

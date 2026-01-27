@@ -18,6 +18,8 @@ import {
   AlertCircle,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { ServiceSchema } from '@/components/structured-data'
+import { Breadcrumbs } from '@/components/breadcrumbs'
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -144,13 +146,19 @@ const mervRatings = [
 export default function IndoorAirQualityPage() {
   return (
     <>
+      <ServiceSchema
+        name="Indoor Air Quality Solutions"
+        description="Breathe cleaner air with Baker Air's indoor air quality solutions. Whole-home purifiers, UV air treatment, and MERV filtration for Temecula Valley homes."
+        url="https://bakerairinc.com/indoor-air-quality"
+        image="https://bakerairinc.com/indoor.air.quality.hero.webp"
+      />
       {/* Hero Section */}
       <section className="relative min-h-[80vh] flex items-center pt-32 pb-20 overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
           <Image
             src="/indoor.air.quality.hero.webp"
-            alt="Indoor Air Quality"
+            alt="Family enjoying clean indoor air with whole-home air purification solutions"
             fill
             priority
             className="absolute inset-0 w-full h-full object-cover"
@@ -166,6 +174,15 @@ export default function IndoorAirQualityPage() {
               animate="animate"
               variants={stagger}
             >
+              <motion.div variants={fadeInUp} className="mb-4">
+                <Breadcrumbs
+                  items={[
+                    { label: 'Services', href: '/services' },
+                    { label: 'Air Quality', href: '/indoor-air-quality' },
+                  ]}
+                />
+              </motion.div>
+
               <motion.div variants={fadeInUp}>
                 <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-50 text-brand-600 text-sm font-medium mb-6">
                   <Wind className="w-4 h-4" />
@@ -177,10 +194,10 @@ export default function IndoorAirQualityPage() {
                 variants={fadeInUp}
                 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 mb-6 tracking-tight"
               >
-                Breathe Cleaner.{' '}
+                Indoor Air Quality{' '}
                 <span className="relative">
                   <span className="relative z-10 bg-gradient-to-r from-brand-600 to-brand-500 bg-clip-text text-transparent">
-                    Feel Better.
+                    Solutions
                   </span>
                   <span className="absolute bottom-2 left-0 right-0 h-3 bg-brand-200/50 -z-10" />
                 </span>
@@ -222,9 +239,9 @@ export default function IndoorAirQualityPage() {
                         <Wind className="h-5 w-5 text-brand-600" />
                       </div>
                     </div>
-                    <h3 className="text-lg font-bold text-slate-900">
+                    <h2 className="text-lg font-bold text-slate-900">
                       Common Indoor Pollutants
-                    </h3>
+                    </h2>
                   </div>
                   <div className="grid grid-cols-2 gap-2">
                     {pollutants.map((pollutant) => (
@@ -258,9 +275,9 @@ export default function IndoorAirQualityPage() {
                       <Wind className="h-7 w-7 text-brand-600" />
                     </div>
                   </div>
-                  <h3 className="text-2xl font-bold text-slate-900 mb-2">
+                  <h2 className="text-2xl font-bold text-slate-900 mb-2">
                     Common Indoor Pollutants
-                  </h3>
+                  </h2>
                   <p className="text-slate-600 text-sm">
                     These invisible threats affect your health daily
                   </p>

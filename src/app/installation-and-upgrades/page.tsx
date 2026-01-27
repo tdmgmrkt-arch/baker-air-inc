@@ -17,6 +17,8 @@ import {
   Zap,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { ServiceSchema } from '@/components/structured-data'
+import { Breadcrumbs } from '@/components/breadcrumbs'
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -130,13 +132,19 @@ const benefits = [
 export default function InstallationPage() {
   return (
     <>
+      <ServiceSchema
+        name="HVAC Installation & Upgrades"
+        description="Professional AC and heating installation in Temecula Valley. Central AC, mini-splits, furnaces & smart thermostats. Energy-efficient systems that save you money."
+        url="https://bakerairinc.com/installation-and-upgrades"
+        image="https://bakerairinc.com/installation.upgrades.webp"
+      />
       {/* Hero Section */}
       <section className="relative min-h-[70vh] flex items-center pt-32 pb-20 overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
           <Image
             src="/installation.upgrades.webp"
-            alt="HVAC Installation"
+            alt="Professional HVAC system installation by Baker Air technician in Temecula Valley"
             fill
             priority
             className="absolute inset-0 w-full h-full object-cover"
@@ -152,6 +160,15 @@ export default function InstallationPage() {
             variants={stagger}
             className="max-w-3xl"
           >
+            <motion.div variants={fadeInUp} className="mb-4">
+              <Breadcrumbs
+                items={[
+                  { label: 'Services', href: '/services' },
+                  { label: 'Installation & Upgrades', href: '/installation-and-upgrades' },
+                ]}
+              />
+            </motion.div>
+
             <motion.div variants={fadeInUp}>
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-50 text-brand-600 text-sm font-medium mb-6">
                 <Zap className="w-4 h-4" />
@@ -163,10 +180,10 @@ export default function InstallationPage() {
               variants={fadeInUp}
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 mb-6 tracking-tight"
             >
-              Customized Comfort.{' '}
+              HVAC Installation &{' '}
               <span className="relative">
                 <span className="relative z-10 bg-gradient-to-r from-brand-600 to-brand-500 bg-clip-text text-transparent">
-                  Built to Perform.
+                  System Upgrades
                 </span>
                 <span className="absolute bottom-2 left-0 right-0 h-3 bg-brand-200/50 -z-10" />
               </span>
@@ -306,7 +323,7 @@ export default function InstallationPage() {
                 <div className="aspect-square relative rounded-2xl overflow-hidden bg-gradient-to-br from-slate-50 to-slate-100">
                   <Image
                     src="/baker.logo.webp"
-                    alt="Professional HVAC Installation"
+                    alt="Baker Air Inc - professional HVAC installation and upgrade experts"
                     fill
                     className="object-contain p-8"
                   />
@@ -346,7 +363,7 @@ export default function InstallationPage() {
                 <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-slate-50 to-slate-100 p-6 aspect-[4/3]">
                   <Image
                     src="/baker.logo.webp"
-                    alt="Professional HVAC Installation"
+                    alt="Baker Air Inc - professional HVAC installation and upgrade experts"
                     fill
                     className="object-contain"
                   />

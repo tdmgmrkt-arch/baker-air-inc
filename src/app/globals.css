@@ -85,14 +85,6 @@
     @apply shadow-soft-xl border-slate-200/80;
   }
 
-  .bento-card::before {
-    content: '';
-    @apply absolute inset-0 bg-gradient-to-br from-brand-500/5 to-transparent opacity-0 transition-opacity duration-500;
-  }
-
-  .bento-card:hover::before {
-    @apply opacity-100;
-  }
 
   /* Glow Effect */
   .glow {

@@ -108,19 +108,19 @@ export default function HomePage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative min-h-screen pt-20 pb-32 overflow-hidden">
+      <section className="relative min-h-screen pt-0 pb-32 overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
           <Image
-            src="/home.hero.webp"
-            alt="HVAC Service"
+            src="/homeheroimage.webp"
+            alt="Baker Air HVAC technician servicing air conditioning unit in Temecula Valley home"
             fill
             priority
             className="object-cover object-top left"
-            style={{ opacity: 0.55 }}
+            style={{ opacity: 100 }}
           />
           {/* Dark Overlay */}
-          <div className="absolute inset-0 bg-navy-900/90" />
+          <div className="absolute inset-0 bg-navy-900/60" />
           {/* Ambient glow */}
           <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-brand-500/8 rounded-full blur-[120px]" />
         </div>
@@ -147,8 +147,8 @@ export default function HomePage() {
               transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
               className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-[-0.04em] text-white mb-6 text-balance"
             >
-              Quality Heating &<br className="hidden sm:block" />
-              Air Services
+              Baker Air: Quality<br className="hidden sm:block" />
+              HVAC Services
             </motion.h1>
 
             {/* Trust Signal */}
@@ -320,7 +320,7 @@ export default function HomePage() {
                 <div className="relative">
                   <Image
                     src="/baker.air.mascot.png"
-                    alt="Baker Air"
+                    alt="Baker Air mascot representing trusted family-owned HVAC company"
                     width={48}
                     height={48}
                     className="rounded-full ring-2 ring-brand-100 flex-shrink-0"
@@ -621,7 +621,7 @@ export default function HomePage() {
                     <div className="relative w-14 h-14 rounded-xl overflow-hidden bg-brand-50 p-2 border border-brand-100">
                       <Image
                         src="/baker.logo.webp"
-                        alt="Baker Air"
+                        alt="Baker Air Inc logo - family-owned HVAC company in Temecula Valley"
                         fill
                         className="object-contain"
                       />

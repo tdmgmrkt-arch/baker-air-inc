@@ -259,9 +259,10 @@ export function Navigation() {
                       <div className="absolute -top-3 right-6 w-40 h-40">
                         <Image
                           src="/bakermascottaking calls.png"
-                          alt=""
+                          alt="Baker Air mascot - decorative background"
                           fill
                           className="object-contain drop-shadow-lg opacity-25"
+                          aria-hidden="true"
                         />
                       </div>
                       <div className="relative pr-20">

@@ -17,6 +17,7 @@ import {
   Sparkles,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { Breadcrumbs } from '@/components/breadcrumbs'
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -95,6 +96,14 @@ export default function AboutPage() {
               animate="animate"
               variants={stagger}
             >
+              <motion.div variants={fadeInUp} className="mb-4">
+                <Breadcrumbs
+                  items={[
+                    { label: 'About Us', href: '/about' },
+                  ]}
+                />
+              </motion.div>
+
               <motion.div variants={fadeInUp}>
                 <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-50 text-brand-600 text-sm font-medium mb-6">
                   <Sparkles className="w-4 h-4" />
@@ -106,10 +115,10 @@ export default function AboutPage() {
                 variants={fadeInUp}
                 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 mb-6 tracking-tight"
               >
-                Our Family{' '}
+                About Baker Air:{' '}
                 <span className="relative">
                   <span className="relative z-10 bg-gradient-to-r from-brand-600 to-brand-500 bg-clip-text text-transparent">
-                    Legacy
+                    Family-Owned HVAC
                   </span>
                   <span className="absolute bottom-2 left-0 right-0 h-3 bg-brand-200/50 -z-10" />
                 </span>

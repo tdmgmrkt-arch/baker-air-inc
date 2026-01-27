@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useRef, useEffect } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import {
@@ -10,6 +11,8 @@ import {
   CheckCircle2,
   Send,
   MessageSquare,
+  ChevronDown,
+  Check,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -22,6 +25,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { Breadcrumbs } from '@/components/breadcrumbs'
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -66,7 +70,113 @@ const serviceAreas = [
   'Murrieta, CA',
 ]
 
+const SERVICES_OFFERED = [
+  { id: 'installation', label: 'Installation & Upgrades' },
+  { id: 'repair', label: 'Repair Service' },
+  { id: 'maintenance', label: 'Preventative Maintenance' },
+  { id: 'air-quality', label: 'Indoor Air Quality' },
+]
+
 export default function ContactPage() {
+  const [selectedServices, setSelectedServices] = useState<string[]>([])
+  const [isServicesOpen, setIsServicesOpen] = useState(false)
+  const [honeypot, setHoneypot] = useState('')
+  const [formStartTime] = useState(() => Date.now())
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsServicesOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
+  const toggleService = (serviceId: string) => {
+    setSelectedServices(prev =>
+      prev.includes(serviceId)
+        ? prev.filter(id => id !== serviceId)
+        : [...prev, serviceId]
+    )
+  }
+
+  const getSelectedLabels = () => {
+    if (selectedServices.length === 0) return 'Select services...'
+    if (selectedServices.length === 1) {
+      return SERVICES_OFFERED.find(s => s.id === selectedServices[0])?.label || ''
+    }
+    return `${selectedServices.length} services selected`
+  }
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    // Spam protection: Check honeypot field
+    if (honeypot) {
+      console.log('Spam detected: honeypot filled')
+      // Silently reject but show success to not alert bots
+      setSubmitStatus('success')
+      return
+    }
+
+    // Spam protection: Check if form was submitted too quickly (under 3 seconds)
+    const timeTaken = Date.now() - formStartTime
+    if (timeTaken < 3000) {
+      console.log('Spam detected: form submitted too quickly')
+      // Silently reject but show success to not alert bots
+      setSubmitStatus('success')
+      return
+    }
+
+    setIsSubmitting(true)
+    setSubmitStatus('idle')
+
+    // Get form data
+    const formData = new FormData(e.currentTarget)
+    const data = {
+      firstName: formData.get('firstName'),
+      lastName: formData.get('lastName'),
+      phone: formData.get('phone'),
+      email: formData.get('email'),
+      address1: formData.get('address1'),
+      city: formData.get('city'),
+      state: formData.get('state') || 'California',
+      zip: formData.get('zip'),
+      services: selectedServices.map(id =>
+        SERVICES_OFFERED.find(s => s.id === id)?.label || id
+      ).join(', '),
+      message: formData.get('message'),
+    }
+
+    try {
+      const response = await fetch(
+        'https://services.leadconnectorhq.com/hooks/uNCrqtS37L3JzXaOl45U/webhook-trigger/5265d58f-2e7c-4541-b745-f94f3dea32b1',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        }
+      )
+
+      if (response.ok) {
+        setSubmitStatus('success')
+      } else {
+        setSubmitStatus('error')
+      }
+    } catch {
+      setSubmitStatus('error')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   return (
     <>
       {/* Hero Section */}
@@ -75,7 +185,7 @@ export default function ContactPage() {
         <div className="absolute inset-0">
           <Image
             src="/contact.hero.webp"
-            alt="Contact Baker Air"
+            alt="Contact Baker Air for HVAC installation, repair, and maintenance in Temecula Valley"
             fill
             priority
             className="absolute inset-0 w-full h-full object-cover"
@@ -91,6 +201,14 @@ export default function ContactPage() {
             variants={stagger}
             className="text-center max-w-3xl mx-auto"
           >
+            <motion.div variants={fadeInUp} className="mb-4">
+              <Breadcrumbs
+                items={[
+                  { label: 'Contact Us', href: '/contact-us' },
+                ]}
+              />
+            </motion.div>
+
             <motion.div variants={fadeInUp}>
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-50 text-brand-600 text-sm font-semibold mb-6 tracking-wide">
                 <MessageSquare className="w-4 h-4" />
@@ -102,7 +220,7 @@ export default function ContactPage() {
               variants={fadeInUp}
               className="text-5xl md:text-6xl font-bold text-slate-900 mb-6 tracking-[-0.02em]"
             >
-              Contact Us
+              Contact Baker Air for a Free HVAC Quote
             </motion.h1>
 
             <motion.p
@@ -135,7 +253,21 @@ export default function ContactPage() {
                 </h2>
                 <p className="text-slate-500 mb-8">We typically respond within 24 hours.</p>
 
-                <form className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Honeypot field - hidden from users, catches bots */}
+                  <div className="absolute -left-[9999px] aria-hidden" aria-hidden="true">
+                    <label htmlFor="website">Website</label>
+                    <input
+                      type="text"
+                      id="website"
+                      name="website"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={honeypot}
+                      onChange={(e) => setHoneypot(e.target.value)}
+                    />
+                  </div>
+
                   {/* Name Fields */}
                   <div className="grid sm:grid-cols-2 gap-6">
                     <div className="space-y-2">
@@ -247,6 +379,57 @@ export default function ContactPage() {
                     </div>
                   </div>
 
+                  {/* Services Requested */}
+                  <div className="pt-6 border-t border-slate-100">
+                    <div className="space-y-2">
+                      <Label>Services Requested</Label>
+                      <p className="text-sm text-slate-500 mb-2">Select all that apply</p>
+                      <div className="relative" ref={dropdownRef}>
+                        <button
+                          type="button"
+                          onClick={() => setIsServicesOpen(!isServicesOpen)}
+                          className="flex h-12 w-full items-center justify-between rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:ring-offset-2 focus:border-brand-500 transition-all duration-200 hover:border-slate-300"
+                        >
+                          <span className={selectedServices.length === 0 ? 'text-slate-400' : 'text-slate-900'}>
+                            {getSelectedLabels()}
+                          </span>
+                          <ChevronDown className={`h-4 w-4 text-slate-400 transition-transform duration-200 ${isServicesOpen ? 'rotate-180' : ''}`} />
+                        </button>
+
+                        {isServicesOpen && (
+                          <div className="absolute z-50 mt-1 w-full rounded-xl border border-slate-200 bg-white shadow-lg overflow-hidden">
+                            <div className="p-1">
+                              {SERVICES_OFFERED.map((service) => (
+                                <button
+                                  key={service.id}
+                                  type="button"
+                                  onClick={() => toggleService(service.id)}
+                                  className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-slate-700 hover:bg-slate-100 transition-colors"
+                                >
+                                  <div className={`flex h-5 w-5 items-center justify-center rounded border-2 transition-all duration-200 ${
+                                    selectedServices.includes(service.id)
+                                      ? 'bg-brand-500 border-brand-500'
+                                      : 'border-slate-300'
+                                  }`}>
+                                    {selectedServices.includes(service.id) && (
+                                      <Check className="h-3 w-3 text-white" />
+                                    )}
+                                  </div>
+                                  {service.label}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Hidden inputs for form submission */}
+                        {selectedServices.map(serviceId => (
+                          <input key={serviceId} type="hidden" name="services" value={serviceId} />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
                   {/* Message */}
                   <div className="pt-6 border-t border-slate-100">
                     <div className="space-y-2">
@@ -266,10 +449,34 @@ export default function ContactPage() {
 
                   {/* Submit Button */}
                   <div className="pt-8">
-                    <Button type="submit" size="lg" variant="primary" className="group w-full sm:w-auto">
-                      Submit Request
-                      <Send className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
-                    </Button>
+                    {submitStatus === 'success' ? (
+                      <div className="flex items-center gap-3 p-4 bg-green-50 border border-green-200 rounded-xl">
+                        <CheckCircle2 className="h-6 w-6 text-green-600 flex-shrink-0" />
+                        <div>
+                          <p className="font-semibold text-green-900">Thank you for your request!</p>
+                          <p className="text-sm text-green-700">We&apos;ll get back to you within 24 hours.</p>
+                        </div>
+                      </div>
+                    ) : submitStatus === 'error' ? (
+                      <div className="space-y-4">
+                        <div className="flex items-center gap-3 p-4 bg-red-50 border border-red-200 rounded-xl">
+                          <div className="h-6 w-6 text-red-600 flex-shrink-0">!</div>
+                          <div>
+                            <p className="font-semibold text-red-900">Something went wrong</p>
+                            <p className="text-sm text-red-700">Please try again or call us directly.</p>
+                          </div>
+                        </div>
+                        <Button type="submit" size="lg" variant="primary" className="group w-full sm:w-auto" disabled={isSubmitting}>
+                          {isSubmitting ? 'Submitting...' : 'Try Again'}
+                          <Send className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
+                        </Button>
+                      </div>
+                    ) : (
+                      <Button type="submit" size="lg" variant="primary" className="group w-full sm:w-auto" disabled={isSubmitting}>
+                        {isSubmitting ? 'Submitting...' : 'Submit Request'}
+                        <Send className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
+                      </Button>
+                    )}
                   </div>
                 </form>
               </div>
@@ -463,28 +670,6 @@ export default function ContactPage() {
             </div>
           </div>
         </div>
-      </section>
-
-      {/* Map Section */}
-      <section className="h-[400px] bg-slate-100">
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="h-full"
-        >
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3316.2!2d-117.08!3d33.71!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzPCsDQyJzM2LjAiTiAxMTfCsDA0JzQ4LjAiVw!5e0!3m2!1sen!2sus!4v1"
-            width="100%"
-            height="100%"
-            style={{ border: 0 }}
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            title="Baker Air Inc. Location"
-            className="grayscale hover:grayscale-0 transition-all duration-500"
-          />
-        </motion.div>
       </section>
     </>
   )

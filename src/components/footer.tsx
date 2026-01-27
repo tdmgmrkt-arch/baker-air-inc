@@ -15,6 +15,8 @@ const footerLinks = {
     { name: 'Contact', href: '/contact-us' },
     { name: 'Service Areas', href: '/contact-us' },
     { name: 'Reviews', href: '/about' },
+    { name: 'Privacy Policy', href: '/privacy-policy' },
+    { name: 'Terms of Service', href: '/terms' },
   ],
   areas: ['Temecula', 'Menifee', 'Wildomar', 'Winchester', 'Murrieta', 'Lake Elsinore'],
 }
