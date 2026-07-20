@@ -100,8 +100,8 @@ export function LocalBusinessSchema() {
     },
     aggregateRating: {
       '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '500',
+      ratingValue: '4.8',
+      reviewCount: '25',
       bestRating: '5',
       worstRating: '1',
     },

@@ -1,9 +1,26 @@
 import { MetadataRoute } from 'next'
+import { blogPosts } from '@/lib/blog-posts'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://bakerairinc.com'
 
+  const blogEntries: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/blog`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
+    ...blogPosts.map((p) => ({
+      url: `${baseUrl}/blog/${p.slug}`,
+      lastModified: new Date(p.publishDate),
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    })),
+  ]
+
   return [
+    ...blogEntries,
     {
       url: baseUrl,
       lastModified: new Date(),

@@ -133,6 +133,87 @@
   }
 }
 
+/* ------------------------------------------------------------------ */
+/* Prose styles for blog article body (rendered via dangerouslySetInnerHTML) */
+/* ------------------------------------------------------------------ */
+.prose-baker {
+  @apply text-slate-700 text-lg leading-[1.75];
+  font-feature-settings: "ss01", "cv01", "cv02";
+}
+
+.prose-baker > * + * {
+  @apply mt-6;
+}
+
+.prose-baker p {
+  @apply text-slate-600 leading-[1.8];
+}
+
+.prose-baker strong {
+  @apply text-slate-900 font-semibold;
+}
+
+.prose-baker em {
+  @apply text-slate-700;
+}
+
+.prose-baker h2 {
+  @apply text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight mt-14 mb-5 leading-[1.2];
+}
+
+.prose-baker h2::before {
+  content: '';
+  @apply block w-12 h-1 rounded-full bg-gradient-to-r from-brand-500 to-brand-600 mb-4;
+}
+
+.prose-baker h3 {
+  @apply text-xl sm:text-2xl font-bold text-slate-900 tracking-tight mt-10 mb-3 leading-snug;
+}
+
+.prose-baker ul,
+.prose-baker ol {
+  @apply space-y-2.5 pl-1 my-6;
+}
+
+.prose-baker ul > li,
+.prose-baker ol > li {
+  @apply relative pl-7 text-slate-600 leading-[1.75];
+}
+
+.prose-baker ul > li::before {
+  content: '';
+  @apply absolute left-0 top-[0.7em] w-2 h-2 rounded-full bg-brand-500;
+}
+
+.prose-baker ol {
+  counter-reset: baker-counter;
+}
+
+.prose-baker ol > li {
+  counter-increment: baker-counter;
+}
+
+.prose-baker ol > li::before {
+  content: counter(baker-counter);
+  @apply absolute left-0 top-[0.1em] w-6 h-6 rounded-full bg-brand-50 text-brand-600 text-xs font-bold flex items-center justify-center border border-brand-100;
+}
+
+.prose-baker a {
+  @apply text-brand-600 font-semibold underline decoration-brand-500/30 decoration-2 underline-offset-4 hover:decoration-brand-500 hover:text-brand-700 transition-colors;
+}
+
+.prose-baker blockquote {
+  @apply relative my-8 pl-6 py-2 border-l-4 border-brand-500 bg-brand-50/40 rounded-r-xl italic text-slate-700 text-lg;
+}
+
+.prose-baker blockquote p {
+  @apply text-slate-700;
+}
+
+.prose-baker hr {
+  @apply my-12 border-slate-200;
+}
+
 /* Premium Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
