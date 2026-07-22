@@ -256,9 +256,20 @@ export function Footer() {
 
       {/* Bottom Copyright Bar */}
       <div className="relative border-t border-white/[0.06] bg-navy-950/50">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-5">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-5 space-y-1.5">
           <p className="text-center text-slate-500/80 text-sm">
             &copy; {new Date().getFullYear()} Baker Air Inc. All Rights Reserved.
+          </p>
+          <p className="text-center text-slate-500/80 text-sm">
+            Designed &amp; Developed by{' '}
+            <a
+              href="https://tdmarketinggroup.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-brand-400 transition-colors"
+            >
+              TD Marketing Group
+            </a>
           </p>
         </div>
       </div>
