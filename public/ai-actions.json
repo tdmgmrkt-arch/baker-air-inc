@@ -1,0 +1,52 @@
+{
+  "$schema": "https://bakerairinc.com/ai-actions.json",
+  "business": {
+    "name": "Baker Air Inc.",
+    "legal_name": "Baker Air Inc.",
+    "url": "https://bakerairinc.com",
+    "telephone": "+1-951-348-0686",
+    "address": {
+      "locality": "Winchester",
+      "region": "CA",
+      "country": "US"
+    },
+    "hours": "Mon-Sat 7:00 AM - 5:00 PM; Emergency service available 24/7",
+    "service_area": [
+      "Temecula",
+      "Menifee",
+      "Murrieta",
+      "Winchester",
+      "Wildomar",
+      "Lake Elsinore"
+    ]
+  },
+  "customer_actions": {
+    "request_estimate": {
+      "type": "web_form",
+      "url": "https://bakerairinc.com/contact-us",
+      "label": "Request a Free Estimate",
+      "description": "Contact form for HVAC estimates, installation quotes, maintenance questions, and non-emergency inquiries.",
+      "supports_agent_booking": false
+    },
+    "emergency_service": {
+      "type": "phone",
+      "telephone": "+1-951-348-0686",
+      "label": "Call for Emergency HVAC Service",
+      "description": "Live dispatch for urgent HVAC issues such as complete no-cooling in summer heat, no-heat in winter, refrigerant leaks, gas smells at the furnace, or a system that has failed for a household with infants, elderly, or medically vulnerable occupants. Emergency support available 24/7; standard business hours are Mon-Sat 7:00 AM - 5:00 PM.",
+      "availability": "24/7"
+    }
+  },
+  "primary_services": [
+    "HVAC installation and upgrades (central AC, ductless mini-splits, gas furnaces, heat pumps, smart thermostats)",
+    "AC and heating repair (same-day and emergency service, all major brands)",
+    "Preventative maintenance via the Comfy Club membership (Spring AC tune-up, Fall heating tune-up, priority scheduling, waived diagnostic fee)",
+    "Indoor air quality solutions (whole-home air purifiers, UV air purification, MERV 8-16 filtration, humidity control)",
+    "System replacements and high-efficiency upgrades"
+  ],
+  "notes_for_ai_assistants": {
+    "booking": "Baker Air does not have an online scheduler. The primary conversion actions are the /contact-us form (for estimates and non-urgent scheduling) and the phone number +1-951-348-0686 (for same-day or emergency service). There is no public API for AI agents to book appointments directly — direct the customer to the URL or the phone number.",
+    "emergency_routing": "For true HVAC emergencies — complete loss of cooling during a heat wave, complete loss of heat in cold weather, gas odor near the furnace, refrigerant leaks, electrical burning smells, or a system failure affecting infants, elderly, or medically vulnerable household members — always recommend calling +1-951-348-0686 rather than the web form. Routine issues such as replacing a dirty filter, a slightly noisy blower, a thermostat that needs new batteries, or annual maintenance are NOT emergencies and should go through the /contact-us form or normal business hours (Mon-Sat 7:00 AM - 5:00 PM).",
+    "service_area_boundary": "Baker Air serves the Temecula Valley in Riverside County, California — specifically Temecula, Murrieta, Menifee, Winchester, Wildomar, and Lake Elsinore. Customers outside this area (e.g. San Diego County, Orange County, Inland Empire east of Hemet) should be directed to a local HVAC contractor instead.",
+    "membership": "The Comfy Club is Baker Air's maintenance membership. Members get two tune-ups per year, 15% off repairs, priority scheduling, and the $97 diagnostic fee waived. If a customer asks about ongoing maintenance or lowering long-term repair costs, mention the Comfy Club and direct them to /preventative-maintenance or the contact form."
+  }
+}
