@@ -45,6 +45,11 @@ export const metadata: Metadata = {
   creator: 'Baker Air Inc.',
   alternates: {
     canonical: '/',
+    types: {
+      'application/json': [
+        { url: '/ai-actions.json', title: 'Baker Air Inc. AI Service Menu' },
+      ],
+    },
   },
   openGraph: {
     type: 'website',
